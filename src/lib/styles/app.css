@@ -1,0 +1,135 @@
+:root {
+	--bg: #f4f6f1;
+	--surface: #ffffff;
+	--surface-alt: #eaf0e7;
+	--ink: #1b2a1f;
+	--muted: #4f6456;
+	--accent: #1f6f5b;
+	--accent-strong: #0f4f42;
+	--warning: #c47a12;
+	--danger: #b84135;
+	--border: #ced9cf;
+	--radius: 12px;
+	--shadow: 0 8px 24px rgba(27, 42, 31, 0.08);
+	--font-main: 'Segoe UI', 'Trebuchet MS', sans-serif;
+}
+
+* {
+	box-sizing: border-box;
+}
+
+body {
+	margin: 0;
+	font-family: var(--font-main);
+	color: var(--ink);
+	background:
+		radial-gradient(circle at top right, rgba(31, 111, 91, 0.12), transparent 40%),
+		radial-gradient(circle at left 20%, rgba(196, 122, 18, 0.12), transparent 30%),
+		var(--bg);
+}
+
+a {
+	color: var(--accent-strong);
+}
+
+.shell {
+	min-height: 100vh;
+	padding: 1rem;
+}
+
+.shell__header {
+	display: grid;
+	grid-template-columns: 1.5fr 1fr 1fr;
+	gap: 1rem;
+	background: var(--surface);
+	padding: 1rem;
+	border: 1px solid var(--border);
+	border-radius: var(--radius);
+	box-shadow: var(--shadow);
+}
+
+.brand__eyebrow {
+	margin: 0;
+	color: var(--muted);
+	font-size: 0.8rem;
+	letter-spacing: 0.04em;
+	text-transform: uppercase;
+}
+
+.brand h1 {
+	margin: 0.25rem 0 0;
+	font-size: 1.3rem;
+}
+
+.shell__nav {
+	display: flex;
+	gap: 0.75rem;
+	align-items: center;
+}
+
+.shell__nav a {
+	display: inline-block;
+	padding: 0.5rem 0.75rem;
+	border-radius: 999px;
+	text-decoration: none;
+	background: var(--surface-alt);
+}
+
+.shell__meta {
+	font-size: 0.85rem;
+}
+
+.shell__meta p {
+	margin: 0.15rem 0;
+}
+
+.shell__meta span {
+	font-weight: 700;
+	margin-right: 0.35rem;
+}
+
+.shell__main {
+	margin-top: 1rem;
+}
+
+.panel {
+	background: var(--surface);
+	border: 1px solid var(--border);
+	border-radius: var(--radius);
+	box-shadow: var(--shadow);
+	padding: 1rem;
+}
+
+.button {
+	border: 1px solid var(--border);
+	background: var(--surface);
+	color: var(--ink);
+	padding: 0.55rem 0.85rem;
+	border-radius: 10px;
+	cursor: pointer;
+	text-decoration: none;
+	font-size: 0.9rem;
+}
+
+.button--primary {
+	background: var(--accent);
+	color: #fff;
+	border-color: var(--accent);
+}
+
+.home {
+	max-width: 52rem;
+	margin: 0 auto;
+}
+
+.home__actions {
+	display: flex;
+	gap: 0.75rem;
+	flex-wrap: wrap;
+}
+
+@media (max-width: 900px) {
+	.shell__header {
+		grid-template-columns: 1fr;
+	}
+}
