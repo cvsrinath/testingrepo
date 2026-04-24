@@ -1,4 +1,5 @@
 export type PeriodOption = 'Q' | '6M' | 'YTD' | 'Custom';
+export type WeightPreset = 'IC Engineer' | 'Senior Engineer' | 'Staff Engineer' | 'Engineering Manager';
 
 export type SortDirection = 'asc' | 'desc';
 
@@ -66,4 +67,12 @@ export interface EmployeeDetail extends EmployeeSummary {
 	trends: Record<string, TrendPoint[]>;
 	contributions: ContributionSource[];
 	improvementSuggestions: string[];
+}
+
+export interface PresetWeights {
+	output: number;
+	impact: number;
+	quality: number;
+	collaboration: number;
+	knowledgeSharing: number;
 }

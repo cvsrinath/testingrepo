@@ -25,7 +25,7 @@
 			return '';
 		}
 
-		return sortDirection === 'asc' ? '↑' : '↓';
+		return sortDirection === 'asc' ? '(asc)' : '(desc)';
 	}
 </script>
 
@@ -47,20 +47,22 @@
 			{#each rows as row}
 				<tr>
 					<td class="sticky">
-						<div class="user-cell">
+						<a class="cell-link user-cell" href={`/employee/${row.userId}`}>
 							<span class="avatar">{row.avatarInitials}</span>
 							<div>
 								<p>{row.displayName}</p>
 								<small>{row.roleLevel}</small>
 							</div>
-						</div>
+						</a>
 					</td>
-					<td>{row.compositeScore.toFixed(1)}</td>
-					<td>{row.commitsPerWeek.toFixed(1)}</td>
-					<td>{row.prThroughput.toFixed(1)}</td>
-					<td>{row.reviewEngagement.toFixed(1)}</td>
-					<td>{row.impactScore.toFixed(1)}</td>
-					<td>{row.codeQualityScore.toFixed(1)}</td>
+					<td data-testid={`composite-${row.userId}`}>
+						<a class="cell-link" href={`/employee/${row.userId}`}>{row.compositeScore.toFixed(1)}</a>
+					</td>
+					<td><a class="cell-link" href={`/employee/${row.userId}`}>{row.commitsPerWeek.toFixed(1)}</a></td>
+					<td><a class="cell-link" href={`/employee/${row.userId}`}>{row.prThroughput.toFixed(1)}</a></td>
+					<td><a class="cell-link" href={`/employee/${row.userId}`}>{row.reviewEngagement.toFixed(1)}</a></td>
+					<td><a class="cell-link" href={`/employee/${row.userId}`}>{row.impactScore.toFixed(1)}</a></td>
+					<td><a class="cell-link" href={`/employee/${row.userId}`}>{row.codeQualityScore.toFixed(1)}</a></td>
 				</tr>
 			{/each}
 		</tbody>
@@ -114,6 +116,24 @@
 		display: flex;
 		align-items: center;
 		gap: 0.5rem;
+	}
+
+	.cell-link {
+		display: inline-flex;
+		align-items: center;
+		gap: 0.5rem;
+		width: 100%;
+		color: inherit;
+		text-decoration: none;
+	}
+
+	td:not(.sticky) .cell-link {
+		justify-content: end;
+	}
+
+	.cell-link:hover {
+		color: var(--accent-strong);
+		text-decoration: underline;
 	}
 
 	.user-cell p {

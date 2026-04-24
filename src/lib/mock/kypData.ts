@@ -4,8 +4,10 @@ import type {
 	EmployeeSummary,
 	MetricSnapshot,
 	PeriodOption,
+	PresetWeights,
 	SortableMetric,
-	TrendPoint
+	TrendPoint,
+	WeightPreset
 } from '$lib/types/kyp';
 
 export const periodOptions: PeriodOption[] = ['Q', '6M', 'YTD', 'Custom'];
@@ -206,7 +208,57 @@ export const alerts: AlertItem[] = [
 	}
 ];
 
-export const weightPresets = ['IC Engineer', 'Senior Engineer', 'Staff Engineer', 'Engineering Manager'];
+export const weightPresets: WeightPreset[] = [
+	'IC Engineer',
+	'Senior Engineer',
+	'Staff Engineer',
+	'Engineering Manager'
+];
+
+export const weightPresetMap: Record<WeightPreset, PresetWeights> = {
+	'IC Engineer': {
+		output: 0.35,
+		impact: 0.3,
+		quality: 0.2,
+		collaboration: 0.1,
+		knowledgeSharing: 0.05
+	},
+	'Senior Engineer': {
+		output: 0.25,
+		impact: 0.3,
+		quality: 0.2,
+		collaboration: 0.15,
+		knowledgeSharing: 0.1
+	},
+	'Staff Engineer': {
+		output: 0.15,
+		impact: 0.25,
+		quality: 0.2,
+		collaboration: 0.2,
+		knowledgeSharing: 0.2
+	},
+	'Engineering Manager': {
+		output: 0.1,
+		impact: 0.2,
+		quality: 0.1,
+		collaboration: 0.2,
+		knowledgeSharing: 0.4
+	}
+};
+
+export const weightPresetDescriptions: Record<WeightPreset, string> = {
+	'IC Engineer': 'Output-heavy baseline for IC contributors.',
+	'Senior Engineer': 'Balanced output + impact with higher collaboration weight.',
+	'Staff Engineer': 'Influence-oriented weighting emphasizing collaboration and sharing.',
+	'Engineering Manager': 'Leadership weighting with strongest knowledge-sharing emphasis.'
+};
+
+export const periodDescriptions: Record<PeriodOption, string> = {
+	Q: 'Quarter snapshot emphasizing recent activity velocity.',
+	'6M': 'Medium-term trend view balancing recency and stability.',
+	YTD: 'Year-to-date baseline with full-period normalization.',
+	Custom: 'Quality-calibrated custom window for focused review scenarios.'
+};
 
 export function getEmployeeDetail(id: string): EmployeeDetail | undefined {
 	return detailMap.get(id);

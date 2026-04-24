@@ -3,12 +3,13 @@
 		title: string;
 		value: string | number;
 		subtitle?: string;
+		testId?: string;
 	}
 
-	let { title, value, subtitle = '' }: Props = $props();
+	let { title, value, subtitle = '', testId = '' }: Props = $props();
 </script>
 
-<article class="metric-card panel">
+<article class="metric-card panel" data-testid={testId || undefined}>
 	<p class="metric-card__title">{title}</p>
 	<p class="metric-card__value">{value}</p>
 	{#if subtitle}

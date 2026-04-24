@@ -4,20 +4,32 @@
 	import MetricCard from '$lib/components/MetricCard.svelte';
 	import PeriodSelector from '$lib/components/PeriodSelector.svelte';
 	import TeamRosterTable from '$lib/components/TeamRosterTable.svelte';
-	import { alerts, teamName, teamRoster, weightPresets } from '$lib/mock/kypData';
+	import {
+		alerts,
+		periodDescriptions,
+		teamName,
+		teamRoster,
+		weightPresetDescriptions,
+		weightPresets
+	} from '$lib/mock/kypData';
 	import { selectedPeriod } from '$lib/stores/period';
-	import type { SortDirection, SortableMetric } from '$lib/types/kyp';
+	import type { SortDirection, SortableMetric, WeightPreset } from '$lib/types/kyp';
 	import { downloadCsv, teamRowsToCsv } from '$lib/utils/csv';
 	import { nextSortDirection, sortTeamMembers } from '$lib/utils/sorting';
+	import { applyPeriodMetrics, applyWeightPreset } from '$lib/utils/supervisorMetrics';
 
 	let sortKey = $state<SortableMetric>('compositeScore');
 	let sortDirection = $state<SortDirection>('desc');
-	let selectedWeightPreset = $state(weightPresets[1]);
+	let selectedWeightPreset = $state<WeightPreset>(weightPresets[1]);
 
-	const sortedRows = $derived(sortTeamMembers(teamRoster, sortKey, sortDirection));
+	const periodAdjustedRows = $derived(applyPeriodMetrics(teamRoster, $selectedPeriod));
+	const rosterRows = $derived(applyWeightPreset(periodAdjustedRows, selectedWeightPreset));
+	const sortedRows = $derived(sortTeamMembers(rosterRows, sortKey, sortDirection));
 	const avgComposite = $derived(
 		(sortedRows.reduce((sum, row) => sum + row.compositeScore, 0) / sortedRows.length).toFixed(1)
 	);
+	const periodDescription = $derived(periodDescriptions[$selectedPeriod]);
+	const weightDescription = $derived(weightPresetDescriptions[selectedWeightPreset]);
 
 	function onSort(column: SortableMetric): void {
 		if (sortKey === column) {
@@ -42,6 +54,7 @@
 			<p class="eyebrow">Supervisor Dashboard</p>
 			<h2>{teamName}</h2>
 			<p class="subtext">Team roster and cohort comparisons for {$selectedPeriod}</p>
+			<p class="subtext-note" data-testid="period-description">{periodDescription}</p>
 		</div>
 		<div class="supervisor__header-controls">
 			<PeriodSelector />
@@ -56,10 +69,21 @@
 			<button class="button button--primary" onclick={exportCsv}>Export CSV</button>
 		</div>
 	</div>
+	<p class="preset-description panel" data-testid="preset-description">{weightDescription}</p>
 
 	<div class="summary-grid">
-		<MetricCard title="Team Members" value={sortedRows.length} subtitle="Roster size in current filter" />
-		<MetricCard title="Avg Composite" value={avgComposite} subtitle="Cohort normalized score" />
+		<MetricCard
+			title="Team Members"
+			value={sortedRows.length}
+			subtitle="Roster size in current filter"
+			testId="team-members-card"
+		/>
+		<MetricCard
+			title="Avg Composite"
+			value={avgComposite}
+			subtitle="Cohort normalized score"
+			testId="avg-composite-card"
+		/>
 		<MetricCard title="Selected Preset" value={selectedWeightPreset} subtitle="Calibration profile" />
 	</div>
 
@@ -99,6 +123,18 @@
 	.subtext {
 		margin: 0;
 		color: var(--muted);
+	}
+
+	.subtext-note {
+		margin: 0.4rem 0 0;
+		color: var(--ink);
+		font-size: 0.85rem;
+		max-width: 34rem;
+	}
+
+	.preset-description {
+		margin: 0;
+		font-size: 0.9rem;
 	}
 
 	.supervisor__header-controls {
