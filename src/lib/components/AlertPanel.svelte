@@ -33,6 +33,7 @@
 <style>
 	.alerts h3 {
 		margin-top: 0;
+		margin-bottom: 0.85rem;
 	}
 
 	ul {
@@ -46,20 +47,25 @@
 	li {
 		display: flex;
 		gap: 0.5rem;
-		padding: 0.55rem;
-		border-radius: 8px;
+		padding: 0.75rem 0.85rem;
+		border-radius: 4px;
 		font-size: 0.85rem;
+		border: 1px solid var(--border);
+		border-left-width: 4px;
 	}
 
 	.info {
-		background: rgba(31, 111, 91, 0.12);
+		background: #f6f9ff;
+		border-left-color: var(--accent);
 	}
 
 	.warning {
-		background: rgba(196, 122, 18, 0.18);
+		background: #fff9ef;
+		border-left-color: var(--warning);
 	}
 
 	.critical {
-		background: rgba(184, 65, 53, 0.16);
+		background: #fff4f2;
+		border-left-color: var(--danger);
 	}
 </style>

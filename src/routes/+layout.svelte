@@ -18,8 +18,10 @@
 			<h1>KYP UI Prototype</h1>
 		</div>
 		<nav class="shell__nav" aria-label="Primary">
-			<a href="/supervisor">Supervisor Dashboard</a>
-			<a href="/employee/alex-rivera">Employee View</a>
+			<a href="/teams">Teams</a>
+			<a href="/teams/team-alpha">Team Detail</a>
+			<a href="/employees/alex-rivera">Employee View</a>
+			<a href="/admin/scoring">Admin</a>
 		</nav>
 		<div class="shell__meta">
 			<p><span>Period</span> {$selectedPeriodLabel}</p>

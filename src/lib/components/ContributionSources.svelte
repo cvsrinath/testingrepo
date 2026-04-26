@@ -46,8 +46,8 @@
 		gap: 1rem;
 		border: 1px solid var(--border);
 		background: var(--surface-alt);
-		border-radius: 8px;
-		padding: 0.5rem 0.6rem;
+		border-radius: 4px;
+		padding: 0.75rem 0.85rem;
 	}
 
 	p,
@@ -58,5 +58,6 @@
 	a {
 		display: block;
 		font-size: 0.8rem;
+		margin-top: 0.2rem;
 	}
 </style>

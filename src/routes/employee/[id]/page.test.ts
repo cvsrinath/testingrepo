@@ -1,7 +1,7 @@
 import { getEmployeeDetail } from '$lib/mock/kypData';
 import { render } from '@testing-library/svelte';
 import { describe, expect, it } from 'vitest';
-import EmployeePage from './+page.svelte';
+import EmployeePage from '../../employees/[id]/+page.svelte';
 
 describe('Employee page sections', () => {
 	it('renders radar and trend sections for employee detail', () => {

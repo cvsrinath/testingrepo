@@ -55,6 +55,7 @@
 <style>
 	.dist h3 {
 		margin-top: 0;
+		margin-bottom: 1rem;
 	}
 
 	.histogram {
@@ -68,16 +69,16 @@
 
 	.bar-wrap {
 		height: 100%;
-		background: var(--surface-alt);
-		border-radius: 6px;
+		background: var(--surface-muted);
+		border-radius: 4px;
 		display: flex;
 		align-items: end;
 	}
 
 	.bar {
 		width: 100%;
-		background: linear-gradient(180deg, var(--accent), var(--accent-strong));
-		border-radius: 6px;
+		background: var(--accent);
+		border-radius: 4px;
 	}
 
 	.stats {
@@ -85,6 +86,8 @@
 		grid-template-columns: 1fr 1fr;
 		gap: 0.25rem 1rem;
 		font-size: 0.85rem;
+		padding-top: 0.75rem;
+		border-top: 1px solid var(--border);
 	}
 
 	.stats p {

@@ -1,6 +1,48 @@
 import { weightPresetMap } from '$lib/mock/kypData';
 import type { EmployeeSummary, PeriodOption, WeightPreset } from '$lib/types/kyp';
 
+export const periodCompositeMultipliers: Record<PeriodOption, number> = {
+	Q: 0.932,
+	'6M': 0.972,
+	YTD: 1.0,
+	Custom: 0.976
+};
+
+export const periodViewScalars: Record<
+	PeriodOption,
+	{
+		activity: number;
+		reliability: number;
+		incidents: number;
+		quality: number;
+	}
+> = {
+	Q: {
+		activity: 0.9,
+		reliability: 0.94,
+		incidents: 0.78,
+		quality: 1.01
+	},
+	'6M': {
+		activity: 0.96,
+		reliability: 0.98,
+		incidents: 0.9,
+		quality: 1
+	},
+	YTD: {
+		activity: 1,
+		reliability: 1,
+		incidents: 1,
+		quality: 1
+	},
+	Custom: {
+		activity: 0.93,
+		reliability: 0.97,
+		incidents: 0.84,
+		quality: 1.03
+	}
+};
+
 const periodMultipliers: Record<
 	PeriodOption,
 	{

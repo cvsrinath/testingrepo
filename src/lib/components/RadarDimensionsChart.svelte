@@ -61,6 +61,7 @@
 <style>
 	.radar h3 {
 		margin-top: 0;
+		margin-bottom: 1rem;
 	}
 
 	svg {
@@ -78,8 +79,8 @@
 	}
 
 	.shape {
-		fill: rgba(31, 111, 91, 0.35);
-		stroke: var(--accent-strong);
+		fill: rgba(0, 24, 168, 0.14);
+		stroke: var(--accent);
 		stroke-width: 2;
 	}
 

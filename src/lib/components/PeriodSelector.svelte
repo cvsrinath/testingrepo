@@ -30,7 +30,8 @@
 		background: var(--surface);
 		border: 1px solid var(--border);
 		color: var(--ink);
-		border-radius: 10px;
-		padding: 0.45rem 0.6rem;
+		border-radius: 999px;
+		padding: 0.55rem 0.85rem;
+		font: inherit;
 	}
 </style>

@@ -44,27 +44,33 @@
 			</tr>
 		</thead>
 		<tbody>
-			{#each rows as row}
+			{#if rows.length === 0}
 				<tr>
-					<td class="sticky">
-						<a class="cell-link user-cell" href={`/employee/${row.userId}`}>
-							<span class="avatar">{row.avatarInitials}</span>
-							<div>
-								<p>{row.displayName}</p>
-								<small>{row.roleLevel}</small>
-							</div>
-						</a>
-					</td>
-					<td data-testid={`composite-${row.userId}`}>
-						<a class="cell-link" href={`/employee/${row.userId}`}>{row.compositeScore.toFixed(1)}</a>
-					</td>
-					<td><a class="cell-link" href={`/employee/${row.userId}`}>{row.commitsPerWeek.toFixed(1)}</a></td>
-					<td><a class="cell-link" href={`/employee/${row.userId}`}>{row.prThroughput.toFixed(1)}</a></td>
-					<td><a class="cell-link" href={`/employee/${row.userId}`}>{row.reviewEngagement.toFixed(1)}</a></td>
-					<td><a class="cell-link" href={`/employee/${row.userId}`}>{row.impactScore.toFixed(1)}</a></td>
-					<td><a class="cell-link" href={`/employee/${row.userId}`}>{row.codeQualityScore.toFixed(1)}</a></td>
+					<td class="empty-state" colspan={columns.length + 1}>No team members match the current filter.</td>
 				</tr>
-			{/each}
+			{:else}
+				{#each rows as row}
+					<tr>
+						<td class="sticky">
+							<a class="cell-link user-cell" href={`/employees/${row.userId}`}>
+								<span class="avatar">{row.avatarInitials}</span>
+								<div>
+									<p>{row.displayName}</p>
+									<small>{row.roleLevel}</small>
+								</div>
+							</a>
+						</td>
+						<td data-testid={`composite-${row.userId}`}>
+							<a class="cell-link" href={`/employees/${row.userId}`}>{row.compositeScore.toFixed(1)}</a>
+						</td>
+						<td><a class="cell-link" href={`/employees/${row.userId}`}>{row.commitsPerWeek.toFixed(1)}</a></td>
+						<td><a class="cell-link" href={`/employees/${row.userId}`}>{row.prThroughput.toFixed(1)}</a></td>
+						<td><a class="cell-link" href={`/employees/${row.userId}`}>{row.reviewEngagement.toFixed(1)}</a></td>
+						<td><a class="cell-link" href={`/employees/${row.userId}`}>{row.impactScore.toFixed(1)}</a></td>
+						<td><a class="cell-link" href={`/employees/${row.userId}`}>{row.codeQualityScore.toFixed(1)}</a></td>
+					</tr>
+				{/each}
+			{/if}
 		</tbody>
 	</table>
 </div>
@@ -84,7 +90,7 @@
 
 	th,
 	td {
-		padding: 0.65rem 0.55rem;
+		padding: 0.75rem 0.7rem;
 		border-bottom: 1px solid var(--border);
 		text-align: right;
 		background: var(--surface);
@@ -94,6 +100,7 @@
 		position: sticky;
 		top: 0;
 		z-index: 3;
+		background: var(--surface-alt);
 	}
 
 	.sticky {
@@ -110,6 +117,10 @@
 		font-weight: 700;
 		cursor: pointer;
 		color: var(--ink);
+		padding: 0;
+		font-size: 0.78rem;
+		text-transform: uppercase;
+		letter-spacing: 0.05em;
 	}
 
 	.user-cell {
@@ -133,12 +144,18 @@
 
 	.cell-link:hover {
 		color: var(--accent-strong);
-		text-decoration: underline;
+		text-decoration: none;
 	}
 
 	.user-cell p {
 		margin: 0;
 		font-weight: 700;
+	}
+
+	.empty-state {
+		text-align: center;
+		color: var(--muted);
+		padding: 2rem;
 	}
 
 	.user-cell small {
@@ -153,7 +170,13 @@
 		justify-content: center;
 		border-radius: 999px;
 		background: var(--surface-alt);
+		border: 1px solid var(--border);
 		font-size: 0.75rem;
 		font-weight: 800;
+		color: var(--accent);
+	}
+
+	tbody tr:hover td {
+		background: #fbfdff;
 	}
 </style>

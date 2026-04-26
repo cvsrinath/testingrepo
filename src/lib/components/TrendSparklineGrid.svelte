@@ -39,6 +39,7 @@
 <style>
 	.trends h3 {
 		margin-top: 0;
+		margin-bottom: 1rem;
 	}
 
 	.trend-grid {
@@ -49,15 +50,18 @@
 
 	.spark {
 		border: 1px solid var(--border);
-		border-radius: 10px;
-		padding: 0.55rem;
+		border-radius: 4px;
+		padding: 0.75rem;
 		background: var(--surface-alt);
 	}
 
 	.spark p {
 		margin: 0 0 0.25rem;
-		font-size: 0.8rem;
+		font-size: 0.76rem;
 		font-weight: 700;
+		text-transform: uppercase;
+		letter-spacing: 0.06em;
+		color: var(--muted);
 	}
 
 	svg {
@@ -67,8 +71,8 @@
 
 	polyline {
 		fill: none;
-		stroke: var(--accent-strong);
-		stroke-width: 2.4;
+		stroke: var(--accent);
+		stroke-width: 2.2;
 		stroke-linecap: round;
 		stroke-linejoin: round;
 	}

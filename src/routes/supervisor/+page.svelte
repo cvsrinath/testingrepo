@@ -26,7 +26,9 @@
 	const rosterRows = $derived(applyWeightPreset(periodAdjustedRows, selectedWeightPreset));
 	const sortedRows = $derived(sortTeamMembers(rosterRows, sortKey, sortDirection));
 	const avgComposite = $derived(
-		(sortedRows.reduce((sum, row) => sum + row.compositeScore, 0) / sortedRows.length).toFixed(1)
+		sortedRows.length === 0
+			? '-'
+			: (sortedRows.reduce((sum, row) => sum + row.compositeScore, 0) / sortedRows.length).toFixed(1)
 	);
 	const periodDescription = $derived(periodDescriptions[$selectedPeriod]);
 	const weightDescription = $derived(weightPresetDescriptions[selectedWeightPreset]);
@@ -110,10 +112,11 @@
 
 	.eyebrow {
 		margin: 0;
-		font-size: 0.8rem;
+		font-size: 0.76rem;
 		text-transform: uppercase;
-		letter-spacing: 0.05em;
+		letter-spacing: 0.08em;
 		color: var(--muted);
+		font-weight: 700;
 	}
 
 	h2 {
@@ -135,6 +138,7 @@
 	.preset-description {
 		margin: 0;
 		font-size: 0.9rem;
+		border-left: 4px solid var(--accent);
 	}
 
 	.supervisor__header-controls {
@@ -149,13 +153,19 @@
 		flex-direction: column;
 		gap: 0.4rem;
 		font-weight: 700;
-		font-size: 0.85rem;
+		font-size: 0.8rem;
+		text-transform: uppercase;
+		letter-spacing: 0.06em;
+		color: var(--muted);
 	}
 
 	select {
 		border: 1px solid var(--border);
-		border-radius: 10px;
-		padding: 0.45rem 0.6rem;
+		border-radius: 999px;
+		padding: 0.55rem 0.85rem;
+		font: inherit;
+		color: var(--ink);
+		background: var(--surface);
 	}
 
 	.summary-grid {

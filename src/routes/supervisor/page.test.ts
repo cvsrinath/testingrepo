@@ -1,5 +1,6 @@
+import { resetPeriod } from '$lib/stores/period';
 import { fireEvent, render } from '@testing-library/svelte';
-import { describe, expect, it } from 'vitest';
+import { afterEach, describe, expect, it } from 'vitest';
 import SupervisorPage from './+page.svelte';
 
 function numericCardValue(text: string): number {
@@ -11,6 +12,10 @@ function numericCardValue(text: string): number {
 }
 
 describe('Supervisor dashboard dropdown functionality', () => {
+	afterEach(() => {
+		resetPeriod();
+	});
+
 	it('updates period description and average composite when review period changes', async () => {
 		const { getByLabelText, getByTestId } = render(SupervisorPage);
 

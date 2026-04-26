@@ -1,8 +1,11 @@
 <section class="home">
-	<h2>Choose a View</h2>
-	<p>Frontend-only prototype using static data from the KYP architecture roadmap.</p>
+	<h2>Explore the Organization View</h2>
+	<p>
+		Mock-backed product surface for browsing teams globally, drilling into team metrics, and tuning scoring inputs.
+	</p>
 	<div class="home__actions">
-		<a class="button button--primary" href="/supervisor">Open Supervisor Dashboard</a>
-		<a class="button" href="/employee/alex-rivera">Open Employee View</a>
+		<a class="button button--primary" href="/teams">Open Teams List</a>
+		<a class="button" href="/teams/team-alpha">Open Team Detail</a>
+		<a class="button" href="/admin/scoring">Open Scoring Admin</a>
 	</div>
 </section>

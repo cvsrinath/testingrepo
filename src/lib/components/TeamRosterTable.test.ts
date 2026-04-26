@@ -16,7 +16,7 @@ describe('TeamRosterTable', () => {
 		expect(getByTestId('team-roster-table')).toBeInTheDocument();
 		expect(getByText('Alex Rivera')).toBeInTheDocument();
 		expect(getByText('Maria Owens')).toBeInTheDocument();
-		expect(getByRole('link', { name: /Alex Rivera/i })).toHaveAttribute('href', '/employee/alex-rivera');
+		expect(getByRole('link', { name: /Alex Rivera/i })).toHaveAttribute('href', '/employees/alex-rivera');
 
 		await fireEvent.click(getByText(/Composite/));
 		expect(onSort).toHaveBeenCalled();
