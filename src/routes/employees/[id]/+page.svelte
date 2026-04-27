@@ -5,14 +5,54 @@
 	import RadarDimensionsChart from '$lib/components/RadarDimensionsChart.svelte';
 	import TrendSparklineGrid from '$lib/components/TrendSparklineGrid.svelte';
 	import { selectedPeriod } from '$lib/stores/period';
-	import { periodCompositeMultipliers } from '$lib/utils/supervisorMetrics';
+	import { periodCompositeMultipliers, periodViewScalars } from '$lib/utils/supervisorMetrics';
+	import type { DimensionScore, TrendPoint } from '$lib/types/kyp';
 	import type { PageData } from './$types';
 
 	let { data }: { data: PageData } = $props();
 
+	function clampScore(value: number): number {
+		return Math.max(0, Math.min(100, Number(value.toFixed(1))));
+	}
+
+	function scaleTrend(points: TrendPoint[], scalar: number): TrendPoint[] {
+		return points.map((point) => ({
+			...point,
+			value: Number((point.value * scalar).toFixed(1))
+		}));
+	}
+
+	const periodScalar = $derived(periodViewScalars[$selectedPeriod]);
 	const adjustedComposite = $derived(
 		(data.employee.compositeScore * periodCompositeMultipliers[$selectedPeriod]).toFixed(1)
 	);
+	const adjustedDimensions = $derived<DimensionScore[]>(
+		data.employee.dimensions.map((dimension) => {
+			const scalar =
+				dimension.dimension === 'Quality'
+					? periodScalar.quality
+					: dimension.dimension === 'Collaboration'
+						? periodScalar.reliability
+						: dimension.dimension === 'Knowledge Sharing'
+							? (periodScalar.quality + periodScalar.reliability) / 2
+							: periodScalar.activity;
+
+			return {
+				...dimension,
+				score: clampScore(dimension.score * scalar)
+			};
+		})
+	);
+	const adjustedTrends = $derived<Record<string, TrendPoint[]>>({
+		'Commits / Week': scaleTrend(data.employee.trends['Commits / Week'], periodScalar.activity),
+		'PR Throughput': scaleTrend(data.employee.trends['PR Throughput'], periodScalar.activity),
+		'Impact Score': scaleTrend(data.employee.trends['Impact Score'], periodScalar.activity),
+		'Code Quality': scaleTrend(data.employee.trends['Code Quality'], periodScalar.quality),
+		'Deployment Touches': scaleTrend(
+			data.employee.trends['Deployment Touches'],
+			(periodScalar.activity + periodScalar.reliability) / 2
+		)
+	});
 </script>
 
 <section class="employee-page">
@@ -50,8 +90,8 @@
 	</div>
 
 	<div class="visual-grid">
-		<RadarDimensionsChart dimensions={data.employee.dimensions} />
-		<TrendSparklineGrid trends={data.employee.trends} />
+		<RadarDimensionsChart dimensions={adjustedDimensions} />
+		<TrendSparklineGrid trends={adjustedTrends} />
 	</div>
 
 	<section class="panel suggestions">
@@ -127,12 +167,18 @@
 
 	.period-badge {
 		margin: 0;
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		min-height: 2.25rem;
 		font-size: 0.82rem;
-		color: var(--muted);
-		background: var(--surface-alt);
+		font-weight: 600;
+		color: var(--ink);
+		background: color-mix(in srgb, var(--accent) 8%, var(--surface));
 		border: 1px solid var(--border);
 		border-radius: 999px;
-		padding: 0.35rem 0.7rem;
+		padding: 0.45rem 0.85rem;
+		white-space: nowrap;
 	}
 
 	.cards {

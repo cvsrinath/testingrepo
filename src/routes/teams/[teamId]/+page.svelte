@@ -22,9 +22,27 @@
 		return Math.max(0, Math.min(100, value));
 	}
 
+	function scaleScore(value: number, scalar: number): number {
+		return roundMetric(clampPercent(value * scalar));
+	}
+
 	const periodDescription = $derived(periodDescriptions[$selectedPeriod]);
 	const periodScalar = $derived(periodViewScalars[$selectedPeriod]);
 	const periodScore = $derived(roundMetric(data.detail.aggregatedScore * periodCompositeMultipliers[$selectedPeriod]));
+	const periodBreakdown = $derived({
+		codeQuality: scaleScore(data.detail.scoreBreakdown.codeQuality, periodScalar.quality),
+		prActivity: scaleScore(data.detail.scoreBreakdown.prActivity, periodScalar.activity),
+		deployments: scaleScore(
+			data.detail.scoreBreakdown.deployments,
+			(periodScalar.activity + periodScalar.reliability) / 2
+		),
+		defectsMttr: scaleScore(
+			data.detail.scoreBreakdown.defectsMttr,
+			(periodScalar.incidents + periodScalar.reliability) / 2
+		),
+		hotfixes: scaleScore(data.detail.scoreBreakdown.hotfixes, periodScalar.incidents),
+		gcp: scaleScore(data.detail.scoreBreakdown.gcp, (periodScalar.activity + periodScalar.incidents) / 2)
+	});
 
 	const periodMetrics = $derived({
 		prThroughput: roundMetric(data.detail.metrics.prThroughput30d * periodScalar.activity),
@@ -80,12 +98,12 @@
 	</header>
 
 	<div class="summary-grid">
-		<MetricCard title="Code Quality" value={data.detail.scoreBreakdown.codeQuality.toFixed(1)} subtitle="Sonar-weighted" />
-		<MetricCard title="PR Activity" value={data.detail.scoreBreakdown.prActivity.toFixed(1)} subtitle="Bitbucket + GitHub" />
-		<MetricCard title="Deployments" value={data.detail.scoreBreakdown.deployments.toFixed(1)} subtitle="Jenkins production reliability" />
-		<MetricCard title="Defects + MTTR" value={data.detail.scoreBreakdown.defectsMttr.toFixed(1)} subtitle="Incident resilience" />
-		<MetricCard title="Hotfixes" value={data.detail.scoreBreakdown.hotfixes.toFixed(1)} subtitle="Inverse hotfix burden" />
-		<MetricCard title="GCP" value={data.detail.scoreBreakdown.gcp.toFixed(1)} subtitle="Infra changes and incidents" />
+		<MetricCard title="Code Quality" value={periodBreakdown.codeQuality.toFixed(1)} subtitle="Sonar-weighted" />
+		<MetricCard title="PR Activity" value={periodBreakdown.prActivity.toFixed(1)} subtitle="Bitbucket + GitHub" />
+		<MetricCard title="Deployments" value={periodBreakdown.deployments.toFixed(1)} subtitle="Jenkins production reliability" />
+		<MetricCard title="Defects + MTTR" value={periodBreakdown.defectsMttr.toFixed(1)} subtitle="Incident resilience" />
+		<MetricCard title="Hotfixes" value={periodBreakdown.hotfixes.toFixed(1)} subtitle="Inverse hotfix burden" />
+		<MetricCard title="GCP" value={periodBreakdown.gcp.toFixed(1)} subtitle="Infra changes and incidents" />
 	</div>
 
 	<div class="tabs panel">
@@ -239,12 +257,19 @@
 
 	.period-badge {
 		margin: 0;
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		min-height: 2.25rem;
+		align-self: start;
 		font-size: 0.82rem;
-		color: var(--muted);
-		background: var(--surface-alt);
+		font-weight: 600;
+		color: var(--ink);
+		background: color-mix(in srgb, var(--accent) 8%, var(--surface));
 		border: 1px solid var(--border);
 		border-radius: 999px;
-		padding: 0.35rem 0.7rem;
+		padding: 0.45rem 0.85rem;
+		white-space: nowrap;
 	}
 
 	.summary-grid {

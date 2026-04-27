@@ -4,6 +4,14 @@ import { resetPeriod } from '$lib/stores/period';
 import { afterEach, describe, expect, it } from 'vitest';
 import TeamDetailPage from './+page.svelte';
 
+function numericCardValue(text: string): number {
+	const match = text.match(/(\d+(\.\d+)?)/);
+	if (!match) {
+		throw new Error(`No numeric value found in card text: ${text}`);
+	}
+	return Number(match[1]);
+}
+
 describe('Team detail page', () => {
 	afterEach(() => {
 		resetPeriod();
@@ -34,11 +42,15 @@ describe('Team detail page', () => {
 		const { getByLabelText, getByTestId, getByText } = render(TeamDetailPage, {
 			data: { detail }
 		});
+		const codeQualityCard = getByText('Code Quality').closest('article');
+		const before = numericCardValue(codeQualityCard?.textContent ?? '');
 
 		const periodSelect = getByLabelText('Review period') as HTMLSelectElement;
 		await fireEvent.change(periodSelect, { target: { value: 'Q' } });
+		const after = numericCardValue(codeQualityCard?.textContent ?? '');
 
 		expect(getByTestId('team-period-description').textContent).toContain('Quarter snapshot');
 		expect(getByText('PR throughput (Q)')).toBeInTheDocument();
+		expect(after).not.toBe(before);
 	});
 });
