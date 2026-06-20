@@ -1,7 +1,7 @@
 <script lang="ts">
-	import AlertPanel from '$lib/components/AlertPanel.svelte';
-	import MetricCard from '$lib/components/MetricCard.svelte';
-	import PeriodSelector from '$lib/components/PeriodSelector.svelte';
+	import AlertPanel from '$lib/components/kyp/AlertPanel.svelte';
+	import MetricCard from '$lib/components/kyp/MetricCard.svelte';
+	import PeriodSelector from '$lib/components/kyp/PeriodSelector.svelte';
 	import { periodDescriptions } from '$lib/mock/kypData';
 	import { selectedPeriod } from '$lib/stores/period';
 	import { periodCompositeMultipliers, periodViewScalars } from '$lib/utils/supervisorMetrics';
@@ -164,7 +164,7 @@
 						<p class="empty-state">No team members matched the current filters.</p>
 					{:else}
 						{#each filteredMembers as member}
-							<a class="member-row" href={`/employees/${member.employeeId}`}>
+							<a class="member-row" href={`/kyp/employees/${member.employeeId}`}>
 								<div>
 									<strong>{member.displayName}</strong>
 									<span>{member.roleLevel} / {member.status}</span>

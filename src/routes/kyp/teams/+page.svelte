@@ -16,7 +16,7 @@
 		if (data.filters.sort) params.set('sort', data.filters.sort);
 		params.set('page', String(page));
 		params.set('page_size', String(data.filters.pageSize));
-		return `/teams?${params.toString()}`;
+		return `/kyp/teams?${params.toString()}`;
 	}
 </script>
 
@@ -32,7 +32,7 @@
 		<div class="header-meta">
 			<p><strong>Active sources</strong> {Object.values(data.scoringConfig.sources).filter((source) => source.enabled).length}</p>
 			<p><strong>Scoring scope</strong> {data.scoringConfig.scopeType}</p>
-			<a class="button" href="/admin/scoring">Admin scoring</a>
+			<a class="button" href="/kyp/admin/scoring">Admin scoring</a>
 		</div>
 	</header>
 
@@ -47,7 +47,7 @@
 					{#each data.result.suggestions as suggestion}
 						<a
 							class="suggestion-row"
-							href={suggestion.type === 'team' ? `/teams/${suggestion.id}` : `/employees/${suggestion.id}`}
+							href={suggestion.type === 'team' ? `/kyp/teams/${suggestion.id}` : `/kyp/employees/${suggestion.id}`}
 						>
 							<strong>{suggestion.label}</strong>
 							<span>{suggestion.meta}</span>
@@ -117,7 +117,7 @@
 
 		<div class="filter-actions">
 			<button class="button button--primary" type="submit">Apply filters</button>
-			<a class="button" href="/teams">Clear</a>
+			<a class="button" href="/kyp/teams">Clear</a>
 		</div>
 	</form>
 
@@ -150,7 +150,7 @@
 							{@const scoreTitle = `Score breakdown — sources: ${Object.entries(data.scoringConfig.sources).filter(([, s]) => s.enabled).map(([, s]) => s.label).join(', ')}`}
 							<tr class:inactive-row={!team.activeFlag}>
 								<td>
-									<a href={`/teams/${team.teamId}`} class="team-link">
+									<a href={`/kyp/teams/${team.teamId}`} class="team-link">
 										<strong>
 											{team.name}
 											{#if !team.activeFlag}<span class="inactive-badge">Inactive</span>{/if}

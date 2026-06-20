@@ -3,7 +3,11 @@
     "allow": [
       "Bash(npm run *)",
       "Bash(node -e \"const p = require\\('./node_modules/@testing-library/svelte/package.json'\\); console.log\\(p.version\\)\")",
-      "Bash(node -e \"const p = require\\('./node_modules/vitest/package.json'\\); console.log\\(p.version\\)\")"
+      "Bash(node -e \"const p = require\\('./node_modules/vitest/package.json'\\); console.log\\(p.version\\)\")",
+      "Bash(git mv *)",
+      "Bash(mkdir -p \"src/routes/kyp/teams/[teamId]\")",
+      "Bash(mkdir -p \"src/routes/kyp/employees/[id]\")",
+      "Bash(git rm *)"
     ]
   }
 }

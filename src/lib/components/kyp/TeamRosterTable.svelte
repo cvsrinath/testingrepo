@@ -52,7 +52,7 @@
 				{#each rows as row}
 					<tr>
 						<td class="sticky">
-							<a class="cell-link user-cell" href={`/employees/${row.userId}`}>
+							<a class="cell-link user-cell" href={`/kyp/employees/${row.userId}`}>
 								<span class="avatar">{row.avatarInitials}</span>
 								<div>
 									<p>{row.displayName}</p>
@@ -61,13 +61,13 @@
 							</a>
 						</td>
 						<td data-testid={`composite-${row.userId}`}>
-							<a class="cell-link" href={`/employees/${row.userId}`}>{row.compositeScore.toFixed(1)}</a>
+							<a class="cell-link" href={`/kyp/employees/${row.userId}`}>{row.compositeScore.toFixed(1)}</a>
 						</td>
-						<td><a class="cell-link" href={`/employees/${row.userId}`}>{row.commitsPerWeek.toFixed(1)}</a></td>
-						<td><a class="cell-link" href={`/employees/${row.userId}`}>{row.prThroughput.toFixed(1)}</a></td>
-						<td><a class="cell-link" href={`/employees/${row.userId}`}>{row.reviewEngagement.toFixed(1)}</a></td>
-						<td><a class="cell-link" href={`/employees/${row.userId}`}>{row.impactScore.toFixed(1)}</a></td>
-						<td><a class="cell-link" href={`/employees/${row.userId}`}>{row.codeQualityScore.toFixed(1)}</a></td>
+						<td><a class="cell-link" href={`/kyp/employees/${row.userId}`}>{row.commitsPerWeek.toFixed(1)}</a></td>
+						<td><a class="cell-link" href={`/kyp/employees/${row.userId}`}>{row.prThroughput.toFixed(1)}</a></td>
+						<td><a class="cell-link" href={`/kyp/employees/${row.userId}`}>{row.reviewEngagement.toFixed(1)}</a></td>
+						<td><a class="cell-link" href={`/kyp/employees/${row.userId}`}>{row.impactScore.toFixed(1)}</a></td>
+						<td><a class="cell-link" href={`/kyp/employees/${row.userId}`}>{row.codeQualityScore.toFixed(1)}</a></td>
 					</tr>
 				{/each}
 			{/if}

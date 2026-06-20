@@ -1,36 +1,40 @@
 <script lang="ts">
 	import '$lib/styles/app.css';
 	import favicon from '$lib/assets/favicon.svg';
-	import { periodLabel, selectedPeriodLabel, lastUpdatedLabel } from '$lib/stores/period';
+	import { page } from '$app/stores';
+	import { modules } from '$lib/stores/navigation';
 
 	let { children } = $props();
+
+	function isActive(moduleHref: string): boolean {
+		const path = $page.url.pathname;
+		if (moduleHref === '/') return path === '/';
+		return path.startsWith(moduleHref);
+	}
 </script>
 
 <svelte:head>
 	<link rel="icon" href={favicon} />
-	<title>KYP UI Prototype</title>
+	<title>Engineering Ops Platform</title>
 </svelte:head>
 
-<div class="shell">
-	<header class="shell__header">
-		<div class="brand">
-			<p class="brand__eyebrow">Know Your Performance</p>
-			<h1>KYP UI Prototype</h1>
-		</div>
-		<nav class="shell__nav" aria-label="Primary">
-			<a href="/teams">Teams</a>
-			<a href="/teams/team-alpha">Team Detail</a>
-			<a href="/employees/alex-rivera">Employee View</a>
-			<a href="/admin/scoring">Admin</a>
-		</nav>
-		<div class="shell__meta">
-			<p><span>Period</span> {$selectedPeriodLabel}</p>
-			<p><span>Last Updated</span> {$lastUpdatedLabel}</p>
-			<p><span>Options</span> {periodLabel.join(', ')}</p>
-		</div>
+<div class="platform">
+	<header class="platform__header">
+		<a href="/" class="platform__header-brand">Engineering <span>Ops</span></a>
 	</header>
 
-	<main class="shell__main">
-{@render children()}
+	<aside class="platform__sidebar">
+		<nav aria-label="Platform modules">
+			{#each modules as mod}
+				<a href={mod.href} class:active={isActive(mod.href)} title={mod.description}>
+					<span class="nav-icon">{mod.icon}</span>
+					{mod.label}
+				</a>
+			{/each}
+		</nav>
+	</aside>
+
+	<main class="platform__main">
+		{@render children()}
 	</main>
 </div>

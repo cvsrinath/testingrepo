@@ -1,9 +1,9 @@
 <script lang="ts">
-	import ContributionSources from '$lib/components/ContributionSources.svelte';
-	import MetricCard from '$lib/components/MetricCard.svelte';
-	import PeriodSelector from '$lib/components/PeriodSelector.svelte';
-	import RadarDimensionsChart from '$lib/components/RadarDimensionsChart.svelte';
-	import TrendSparklineGrid from '$lib/components/TrendSparklineGrid.svelte';
+	import ContributionSources from '$lib/components/kyp/ContributionSources.svelte';
+	import MetricCard from '$lib/components/kyp/MetricCard.svelte';
+	import PeriodSelector from '$lib/components/kyp/PeriodSelector.svelte';
+	import RadarDimensionsChart from '$lib/components/kyp/RadarDimensionsChart.svelte';
+	import TrendSparklineGrid from '$lib/components/kyp/TrendSparklineGrid.svelte';
 	import { selectedPeriod } from '$lib/stores/period';
 	import { periodCompositeMultipliers, periodViewScalars } from '$lib/utils/supervisorMetrics';
 	import type { DimensionScore, TrendPoint } from '$lib/types/kyp';
@@ -57,10 +57,10 @@
 
 <section class="employee-page">
 	<div class="breadcrumb">
-		<a href="/teams">Teams</a>
+		<a href="/kyp/teams">Teams</a>
 		<span>›</span>
 		{#if data.employee.teamId}
-			<a href={`/teams/${data.employee.teamId}`}>{data.employee.teamName}</a>
+			<a href={`/kyp/teams/${data.employee.teamId}`}>{data.employee.teamName}</a>
 			<span>›</span>
 		{/if}
 		<span>{data.employee.displayName}</span>

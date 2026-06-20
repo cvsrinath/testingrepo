@@ -1,0 +1,420 @@
+# KYP Platform Evolution - Major Product Scope Change
+
+You have already built the current KYP prototype and should treat the attached document **"KYP UI Prototype - Current Implementation Snapshot (2026-06-15)"** as the authoritative baseline of the existing implementation.
+
+Before making changes, carefully review that document because it accurately reflects the current routes, components, data models, mock services, and overall architecture.
+
+---
+
+# Product Direction Change
+
+The product is no longer a standalone application called KYP.
+
+KYP now becomes one module (or workspace/tab) inside a larger internal engineering operations platform.
+
+The existing KYP functionality should remain available, but it should be reorganized as part of a broader application that contains multiple operational domains.
+
+Think of the new product as an internal engineering and workforce operations portal with several major functional areas, where KYP is only one of them.
+
+---
+
+# New Application Structure
+
+The application should evolve from:
+
+Current:
+
+* KYP
+
+To:
+
+* Engineering Operations Platform
+
+  * KYP (Know Your Performance)
+  * Employee Onboarding
+  * Infrastructure
+  * Training Management
+  * Stakeholder Reports (placeholder for future implementation)
+
+KYP should remain fully functional but become one section of the larger platform.
+
+---
+
+# Primary Goal
+
+Refactor the application structure so that it can support multiple major modules while maintaining a consistent navigation system, layout, routing strategy, shared design language, and reusable data architecture.
+
+Do not think of the new modules as simple pages.
+
+Each module should be designed as if it could eventually become as large and feature-rich as KYP.
+
+---
+
+# Architecture Expectations
+
+## Create a Platform Shell
+
+Introduce a top-level application shell that provides:
+
+* Global navigation
+* Module navigation
+* Shared layout
+* Shared page structure
+* Shared filtering patterns where appropriate
+* Consistent header and breadcrumb behavior
+
+Suggested navigation:
+
+* Dashboard / Home
+* KYP
+* Onboarding
+* Infrastructure
+* Training
+* Stakeholder Reports
+
+The exact UI can be refined, but the application should clearly feel like a multi-module platform rather than a standalone KYP product.
+
+---
+
+# KYP Module
+
+The existing KYP implementation should be preserved as much as possible.
+
+Existing routes should continue to work, but should be reorganized under a KYP module structure.
+
+Examples:
+
+Current:
+
+* /teams
+* /teams/[teamId]
+* /employees/[id]
+* /admin/scoring
+
+Potential future structure:
+
+* /kyp/teams
+* /kyp/teams/[teamId]
+* /kyp/employees/[id]
+* /kyp/admin/scoring
+
+A migration approach is acceptable.
+
+Legacy routes may temporarily remain for compatibility.
+
+Do not remove existing KYP functionality.
+
+---
+
+# New Module 1: Employee Onboarding
+
+Create a complete onboarding workflow prototype.
+
+Purpose:
+
+Track everything a new employee requires from offer acceptance through productive team onboarding.
+
+The onboarding module should support concepts such as:
+
+## Employee Profile
+
+* Employee information
+* Start date
+* Team assignment
+* Manager
+* Location
+* Employment type
+
+## Onboarding Checklist
+
+Examples:
+
+* Laptop requested
+* Laptop delivered
+* Corporate account created
+* Email activated
+* VPN access
+* Source control access
+* Jira access
+* Confluence access
+* Slack access
+* Team-specific tools
+
+## Team-Specific Requirements
+
+Each team may require different onboarding assets.
+
+Examples:
+
+Platform Team:
+
+* Kubernetes access
+* Cloud console access
+
+Frontend Team:
+
+* Design tools
+* Storybook access
+
+Data Team:
+
+* Warehouse access
+* Analytics tools
+
+The design should support configurable team-specific onboarding templates.
+
+## Request Tracking
+
+Track onboarding requests:
+
+* Requested
+* In Progress
+* Approved
+* Completed
+* Blocked
+
+## Dashboard Concepts
+
+Examples:
+
+* New hires this month
+* Delayed onboarding tasks
+* Completion percentage
+* Upcoming start dates
+* Manager visibility
+
+Use realistic mock data and dashboards similar in quality to the existing KYP prototype.
+
+---
+
+# New Module 2: Infrastructure
+
+Create an infrastructure visibility module.
+
+Purpose:
+
+Provide a company-wide view of infrastructure ownership and usage by teams.
+
+This is not a DevOps monitoring system.
+
+It is primarily an organizational infrastructure inventory and ownership view.
+
+## Core Concepts
+
+Infrastructure assets:
+
+* Cloud projects/accounts
+* Kubernetes clusters
+* Databases
+* Repositories
+* CI/CD systems
+* Monitoring systems
+* Internal services
+* Shared platforms
+
+## Team Mapping
+
+Show:
+
+* Which teams own which infrastructure
+* Shared infrastructure
+* Dependencies
+* Service ownership
+
+## Suggested Views
+
+### Infrastructure Directory
+
+Searchable inventory of infrastructure assets.
+
+### Infrastructure Detail
+
+Asset information:
+
+* Owner team
+* Description
+* Environment
+* Criticality
+* Dependencies
+* Related systems
+
+### Team Infrastructure View
+
+For a team:
+
+* Owned assets
+* Consumed assets
+* Shared resources
+
+### Dashboard
+
+Examples:
+
+* Infrastructure by team
+* Infrastructure by environment
+* Critical systems
+* Ownership coverage
+
+Mock data is acceptable.
+
+---
+
+# New Module 3: Training Management
+
+Create a training and learning management prototype.
+
+Purpose:
+
+Track employee learning, certifications, required training, and recommendations.
+
+## Employee Training Profile
+
+Show:
+
+* Assigned training
+* Completed training
+* Expired training
+* Certifications
+
+## Training Catalog
+
+Training items should include:
+
+* Title
+* Category
+* Duration
+* Difficulty
+* Due date
+* Status
+
+## Recommendations
+
+Recommendations may be based on:
+
+* Team
+* Role
+* Skill profile
+* Career track
+
+Mock recommendation logic is acceptable.
+
+## Dashboard Concepts
+
+Examples:
+
+* Completion rates
+* Overdue training
+* Upcoming deadlines
+* Certification status
+* Recommended learning paths
+
+## Manager View
+
+Managers should be able to see:
+
+* Team completion status
+* Training gaps
+* Upcoming expirations
+
+---
+
+# New Module 4: Stakeholder Reports
+
+This module is not yet defined.
+
+For now:
+
+Create a placeholder module with:
+
+* Landing page
+* Overview card
+* Placeholder messaging
+* Extensible route structure
+
+Design it so future reporting functionality can be added without restructuring the application.
+
+---
+
+# Shared Platform Requirements
+
+As part of this expansion, begin introducing shared platform concepts.
+
+Create reusable structures where appropriate.
+
+Examples:
+
+## Shared Types
+
+Potential folders:
+
+* src/lib/types/kyp
+* src/lib/types/onboarding
+* src/lib/types/infrastructure
+* src/lib/types/training
+* src/lib/types/shared
+
+## Shared Components
+
+Examples:
+
+* Data tables
+* Filter bars
+* Search controls
+* KPI cards
+* Dashboard widgets
+* Status indicators
+
+## Shared Mock Data Strategy
+
+The current kypData.ts file is already large.
+
+As part of this effort:
+
+Refactor toward module-based data ownership.
+
+Suggested structure:
+
+* mock/
+
+  * kyp/
+  * onboarding/
+  * infrastructure/
+  * training/
+  * shared/
+
+Avoid creating another monolithic file.
+
+---
+
+# Important Constraints
+
+Do NOT implement:
+
+* Authentication
+* RBAC
+* Real databases
+* Real integrations
+* Real onboarding systems
+* Real cloud APIs
+* Real training providers
+
+Continue using mock services and prototype-level data patterns.
+
+The goal is to create a scalable UI and application architecture that demonstrates workflows and future platform direction.
+
+---
+
+# Deliverables Expected
+
+1. Refactored application shell supporting multiple modules.
+2. KYP integrated as a platform module.
+3. Employee Onboarding module with dashboards and workflows.
+4. Infrastructure module with inventory and ownership views.
+5. Training module with dashboards and employee tracking.
+6. Stakeholder Reports placeholder module.
+7. Shared navigation and layout.
+8. Refactored mock-data structure by module.
+9. Updated route organization.
+10. Updated reusable component strategy.
+
+Maintain consistency with the existing SvelteKit patterns, TypeScript models, mock-service approach, and overall UX quality already present in the KYP prototype.

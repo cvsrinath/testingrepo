@@ -1,4 +1,4 @@
-import PeriodSelector from '$lib/components/PeriodSelector.svelte';
+import PeriodSelector from '$lib/components/kyp/PeriodSelector.svelte';
 import { fireEvent, render } from '@testing-library/svelte';
 import { get } from 'svelte/store';
 import { afterEach, describe, expect, it } from 'vitest';

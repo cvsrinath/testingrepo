@@ -126,7 +126,7 @@
 		<div class="actions">
 			<button class="button button--primary" type="submit" name="intent" value="save">Save configuration</button>
 			<button class="button" type="submit" name="intent" value="reset">Reset defaults</button>
-			<a class="button" href="/teams">Back to teams</a>
+			<a class="button" href="/kyp/teams">Back to teams</a>
 		</div>
 
 		{#if message}

@@ -1,9 +1,9 @@
 <script lang="ts">
-	import AlertPanel from '$lib/components/AlertPanel.svelte';
-	import CohortDistributionPanel from '$lib/components/CohortDistributionPanel.svelte';
-	import MetricCard from '$lib/components/MetricCard.svelte';
-	import PeriodSelector from '$lib/components/PeriodSelector.svelte';
-	import TeamRosterTable from '$lib/components/TeamRosterTable.svelte';
+	import AlertPanel from '$lib/components/kyp/AlertPanel.svelte';
+	import CohortDistributionPanel from '$lib/components/kyp/CohortDistributionPanel.svelte';
+	import MetricCard from '$lib/components/kyp/MetricCard.svelte';
+	import PeriodSelector from '$lib/components/kyp/PeriodSelector.svelte';
+	import TeamRosterTable from '$lib/components/kyp/TeamRosterTable.svelte';
 	import {
 		alerts,
 		periodDescriptions,

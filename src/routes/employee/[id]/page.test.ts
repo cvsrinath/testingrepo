@@ -2,7 +2,7 @@ import { getEmployeeDetail } from '$lib/mock/kypData';
 import { resetPeriod } from '$lib/stores/period';
 import { fireEvent, render } from '@testing-library/svelte';
 import { afterEach, describe, expect, it } from 'vitest';
-import EmployeePage from '../../employees/[id]/+page.svelte';
+import EmployeePage from '../../kyp/employees/[id]/+page.svelte';
 
 describe('Employee page sections', () => {
 	afterEach(() => {
